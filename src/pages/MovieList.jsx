@@ -3,13 +3,17 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { config } from "../constant";
 import Card from "../Components/Card";
-import PosterItem from "../Components/PosterItem";
+import SearchBox from "../Components/SearchBox";
 
 function MovieList() {
 
     const params = useParams();
     const [movies, setMovies] = useState([]);
-    //const [keyword, setKeyword] = useState("")
+    const [keyword, setKeyword] = useState("")
+
+    const onChangeKeyword = (e) => {
+        setKeyword(e.target.keyword);
+    }
     
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -21,12 +25,14 @@ function MovieList() {
         .then((data) => {
             console.log(data)
             setMovies(data.results)
+            setKeyword("")
         })
     }, [params.type])
 
 
     return ( 
         <Container>
+            <SearchBox keyword={keyword} onChangeKeyword={onChangeKeyword} />
             <Title>
                 {(params?.type || "popular" ).toUpperCase()}
             </Title>
