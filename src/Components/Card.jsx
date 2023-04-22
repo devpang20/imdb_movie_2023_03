@@ -1,26 +1,49 @@
 import { AiFillStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import "react-loading-skeleton/dist/skeleton.css"
+import { useEffect, useState } from "react";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 function Card({movie}) {
+
+    const [loading, setLoading] = useState(true);
+    
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);     
+        }, 1500)
+    },[])
+
+
     return ( 
         <Container>
-            <Link to={"/movie/" + movie.id}>
+            {loading ? (
                 <Item>
-                    <Img
-                        src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
-                        alt="사진"   
-                    />
+                    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+                        <Skeleton height={300} duration={2} />
+                    </SkeletonTheme>
                 </Item>
-                <Overlay>
-                    <Title>{movie.origin_title}</Title>
-                    <SubTitle>
-                        {movie.release_date} / {movie.vote_average}
-                        <AiFillStar/>
-                    </SubTitle>
-                    <Description>{movie.overview.slice(0, 100) + "..."}</Description>
-                </Overlay>
-            </Link>
+            ) 
+           :
+            (
+                <Link to={"/movie/" + movie.id}>
+                    <Item>
+                        <Img
+                            src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
+                            alt="사진"   
+                        />
+                    </Item>
+                    <Overlay>
+                        <Title>{movie.original_title}</Title>
+                        <SubTitle>
+                            {movie.release_date} / {movie.vote_average}
+                            <AiFillStar/>
+                        </SubTitle>
+                        <Description>{movie.overview.slice(0, 100) + "..."}</Description>
+                    </Overlay>
+                </Link>
+            )}
         </Container> 
     );
 }
