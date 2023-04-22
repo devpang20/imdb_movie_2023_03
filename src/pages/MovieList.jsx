@@ -12,7 +12,7 @@ function MovieList() {
     const [keyword, setKeyword] = useState("")
 
     const onChangeKeyword = (e) => {
-        setKeyword(e.target.keyword);
+        setKeyword(e.target.value);
     }
     
     useEffect(() => {
@@ -38,6 +38,15 @@ function MovieList() {
             </Title>
             <Group>
                 {movies
+                    .filter(
+                       movie  => 
+                        movie.original_title
+                            .toLowerCase()
+                            .includes(keyword.toLowerCase())||
+                        movie.title
+                            .toLowerCase()
+                            .includes(keyword.toLowerCase()) 
+                    )
                     .map(movie => (
                         <Card key={params?.type + movie.id} movie={movie}></Card>
                     ))    
