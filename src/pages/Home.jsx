@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { Carousel } from "react-responsive-carousel";
 import styled from "styled-components";
-import { config } from "../constant"
+import { config } from "../constant";
+import PosterItem from "../Components/PosterItem";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 
 function Home() {
     const  [popularMovies, setPopularMovies] = useState([]);
@@ -31,9 +33,7 @@ function Home() {
                     transitionTime={3}
                 >
                     {popularMovies.map((movie) => (
-                        <ul>
-                            <li>{movie.title}</li>
-                        </ul>
+                        <PosterItem key={movie.id} movie={movie} />
                     ))}
                 </Carousel>
             </MoviePoster>
@@ -47,6 +47,9 @@ const Container = styled.div``;
 const MoviePoster = styled.div`
     display: flex;
     align-items: center;
+    .carousel .thumbs-wrapper {
+        margin: 0;
+    }
 `
 
 export default Home;
