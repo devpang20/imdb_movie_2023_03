@@ -1,9 +1,17 @@
 import styled from "styled-components";
+import { BiSearchAlt } from "react-icons/bi";
 
 function SearchBox({ keyword, onChangeKeyword }) {
-    return ( <>
-        test
-    </> );
+    return ( 
+        <Container>
+            <Wrapper>
+                <ImgBox>
+                    <BiSearchAlt size={25} />
+                </ImgBox>
+                <Input placeholder="영화 이름을 입력하세요." value={keyword} onChange={onChangeKeyword} />
+            </Wrapper>
+        </Container> 
+    );
 }
 
 const Container = styled.div`
