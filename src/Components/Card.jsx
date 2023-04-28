@@ -33,15 +33,15 @@ function Card({movie}) {
                             src={"https://image.tmdb.org/t/p/original" + movie.poster_path}
                             alt="사진"   
                         />
+                      <Overlay>
+                          <Title>{movie.original_title}</Title>
+                          <SubTitle>
+                              {movie.release_date} / {movie.vote_average}
+                              <AiFillStar/>
+                          </SubTitle>
+                          <Description>{movie.overview.slice(0, 100) + "..."}</Description>
+                      </Overlay>
                     </Item>
-                    <Overlay>
-                        <Title>{movie.original_title}</Title>
-                        <SubTitle>
-                            {movie.release_date} / {movie.vote_average}
-                            <AiFillStar/>
-                        </SubTitle>
-                        <Description>{movie.overview.slice(0, 100) + "..."}</Description>
-                    </Overlay>
                 </Link>
             )}
         </Container> 
